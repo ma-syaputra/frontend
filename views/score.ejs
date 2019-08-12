@@ -1,0 +1,41 @@
+<div class="form-group">
+<div id='level'>
+        <label for="">My Level</label>
+<% if (locals.level) { %>
+    <h2><%= level %></h2>
+   
+<% } %>
+</div>
+<div class="form-group">
+<div id='score'>
+    <label for="">My Score</label>
+<% if (locals.score) { %>
+    <h2><%= score %></h2>
+<% } %>
+</div>
+</div>
+<div id='question'>
+        <% if (locals.question) { %>
+            <h2><%= question %></h2>
+        <% } %>
+</div>
+<div class="formanswer">
+        <label><%= wordquestion %></label>
+        <input type="text" id='quest' class="form-control" name="answer">
+</div>
+<div class="form-group"><button type="submit" id='check' class="btn btn-warning btn-lg">Check Word</button></div>
+<script>
+$('#check').click(function(){
+    var mylevel = <%= level %> 
+    var textboxvalue = $('input[name=answer]').val();
+    $.ajax({
+            type: 'POST',
+            url: '/checkword',
+            data: {word:textboxvalue,level:mylevel},
+            success: function(result) {
+                location.reload();
+            }
+          });
+       })    
+    </script>
+         
